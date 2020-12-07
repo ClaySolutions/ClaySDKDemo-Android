@@ -35,12 +35,6 @@ import net.openid.appauth.AppAuthConfiguration
 import net.openid.appauth.AuthState
 import net.openid.appauth.browser.BrowserSelector
 
-/**
- * Background permission is required since Android OS Q if the opening operation
- * needs to be performed on background. Case scenario of a widget for example.
- * Toggle to false if that is not the case
- */
-const val NEEDS_BACKGROUND_PERMISSION: Boolean = true
 
 class MainPresenter(context: Context, sharedPrefs: ISharedPrefsUtil, private val authState: AuthState, private val oidConfig: IOIDConfig,
                     private val deviceService: IDeviceService, private val claySDK: IClaySDK, private val handler: Handler
@@ -51,7 +45,6 @@ class MainPresenter(context: Context, sharedPrefs: ISharedPrefsUtil, private val
     private var lastOpeningStartTimestamp: Long = 0
     private var isOpening: Boolean = false
     private var isInErrorState: Boolean = false
-    private var isActivityPaused: Boolean = false
     private var isLocationPermissionDenied = false
 
     init {
@@ -103,9 +96,8 @@ class MainPresenter(context: Context, sharedPrefs: ISharedPrefsUtil, private val
 
     private fun scanOnBluetoothTurnedOn(delay: Long) {
         handler.postDelayed({
-                    if (!isActivityPaused) {
-                        view?.onBluetoothStatusChanged(true)
-                    } }, delay)
+            view?.onBluetoothStatusChanged(true)
+        }, delay)
     }
 
     private fun handleClayException(exception: ClayException) {
@@ -247,7 +239,7 @@ class MainPresenter(context: Context, sharedPrefs: ISharedPrefsUtil, private val
         if(!checkAndAskRequiredPermission()) {
             return
         }
-        if (isActivityPaused || isOpening) {
+        if (isOpening) {
             return
         }
         isOpening = true
@@ -271,14 +263,12 @@ class MainPresenter(context: Context, sharedPrefs: ISharedPrefsUtil, private val
         }
 
         if (isInErrorState) {
-            isActivityPaused = false
             isInErrorState = false
             openLock()
         }
 
-        if (isActivityPaused && isBluetoothTurnedOn) {
+        if (isBluetoothTurnedOn) {
             scanOnBluetoothTurnedOn(AppConfig.Timers.MKEY_BLUETOOTH_ON_RETRY)
-            isActivityPaused = false
             isBluetoothTurnedOn = false
         }
 
@@ -299,7 +289,6 @@ class MainPresenter(context: Context, sharedPrefs: ISharedPrefsUtil, private val
             grantResults.isEmpty() -> onMissingLocationPermission()
 
             grantResults[0] == PackageManager.PERMISSION_GRANTED -> {
-                isActivityPaused = false
                 isLocationPermissionDenied = false
                 view?.onPermissionGranted()
             }

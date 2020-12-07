@@ -6,7 +6,6 @@ import com.myclay.claysdk.api.ClaySDK
 import com.myclay.claysdk.api.IClaySDK
 import com.quality.claysdkdemo.R
 import com.salto.claysdkdemo.application.App
-import com.salto.claysdkdemo.application.AppConfig
 import com.salto.claysdkdemo.application.AppConfig.Dagger.API_KEY
 import com.salto.claysdkdemo.application.ISharedPrefsUtil
 import com.salto.claysdkdemo.application.SharedPrefsUtil
@@ -69,7 +68,7 @@ class AppModule(private val application: App) {
 
     @Provides
     @Singleton
-    fun provideClaySDK(context: Context, @Named(API_KEY) apiKey: String?): IClaySDK {
+    fun provideClaySDK(context: Context, @Named(API_KEY) apiKey: String): IClaySDK {
         return ClaySDK.init(context, apiKey, DeviceInfo.uniquePseudoID(context))
     }
 }

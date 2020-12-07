@@ -4,7 +4,7 @@
     <string name="redirect_url"></string>
     <string name="logout_redirect_url"></string>
     <string name="public_api_key">MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEFYDlLVhKz+qNQIBASs322cib/iwnnuSWczXSvU8GGYB6pgZgaCroCywHMPclFRehVsB+jYRJd6n4zkhDSGd5bQ==</string>
-    <string name="user_api_url">https://clp-accept-identityserver.my-clay.com</string>
+    <string name="user_api_url">https://clp-accept-user.my-clay.com</string>
 
     <string name="app_name">ClaySDKDemo</string>
     <string name="login">LOGIN</string>

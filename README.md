@@ -5,10 +5,10 @@ and activate an Android device to be used to unlock a Salto lock via Mobile Key.
 
 ### How do I get set up? ###
 
-In order to be able to login to our APIs an integrator is supposed to receive a OpenId client configuration.
-This configuration will be specific for unique for any different integrator
+In order to be able to login to our APIs an integrator is supposed to receive an OpenId client configuration.
+This configuration will be specific and unique for any different integrator.
 
-Please replace the configuration values obtained your client in the string.xml file where missing.
+Please replace the configuration values obtained for your client in the strings.xml file where missing.
 By default the app will point to the Salto's Connect APIs to their accept environment
 
 ```xml

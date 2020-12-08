@@ -14,12 +14,11 @@ object AppConfig {
     }
 
     object Endpoints {
-        private const val UAP_VERSION = "/v1.1"
-        const val REGISTER_MKEY_DEVICE = "$UAP_VERSION/me/devices"
-        const val GET_MOBILE_KEY = "$UAP_VERSION/me/devices/{$USER_ID}/mkey"
-        const val MKEY_DEVICE = "$UAP_VERSION/me/devices/{$DEVICE_ID}"
-        const val MKEY_DEVICE_LIST = "$UAP_VERSION/me/devices"
-        const val PUT_MKEY_DEVICE_CERTIFICATE = "$UAP_VERSION/me/devices/{$USER_ID}/certificate"
+        const val REGISTER_MKEY_DEVICE = "/v1.1/me/devices"
+        const val GET_MOBILE_KEY = "/v1.1/me/devices/{$USER_ID}/mkey"
+        const val MKEY_DEVICE = "/v1.1/me/devices/{$DEVICE_ID}"
+        const val MKEY_DEVICE_LIST = "/v1.1/me/devices"
+        const val PUT_MKEY_DEVICE_CERTIFICATE = "/v1.1/me/devices/{$USER_ID}/certificate"
     }
 
     object ApiParams {

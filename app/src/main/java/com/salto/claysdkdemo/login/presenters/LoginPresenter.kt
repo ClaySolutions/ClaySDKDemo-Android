@@ -16,7 +16,10 @@ class LoginPresenter(context: Context, sharedPrefs: ISharedPrefsUtil,
         get() = sharedPrefs.readAuthState() != null
 
     override fun login() {
-        val authorizationRequest = oidConfig.getAuthorizationRequest(authState) ?: return
+        val authorizationRequest = oidConfig.getAuthorizationRequest(authState) ?: run {
+            view?.onOIDConfigError()
+            return
+        }
         if (authorizationService.browserDescriptor == null) {
             view?.displayBrowserError()
             return

@@ -59,11 +59,17 @@ class MainPresenter(context: Context, sharedPrefs: ISharedPrefsUtil, private val
 
     private val lockDiscoveryCallback = object : ILockDiscoveryCallback {
 
+        /**
+         * Called when a lock is detected
+         */
         override fun onPeripheralFound() {
             view?.onPeripheralFound()
             isOpening = false
         }
 
+        /**
+         * Called when the Mobile Key is correctly sent to the lock
+         */
         override fun onSuccess(result: Result) {
             isOpening = false
             if (result.opResult == OpResult.AUTH_SUCCESS_CANCELLED_KEY) {
@@ -101,35 +107,35 @@ class MainPresenter(context: Context, sharedPrefs: ISharedPrefsUtil, private val
     }
 
     private fun handleClayException(exception: ClayException) {
-        try {
-            if (exception.errorCode == ClayErrorCode.DECRYPT_FAILED_ERROR.value) {
+        when (exception.errorCode) {
+
+            ClayErrorCode.DECRYPT_FAILED_ERROR.value -> {
                 view?.onMKeyDecryptionFailed()
                 isInErrorState = true
-                return
             }
-            if (exception.errorCode == ClayException.ErrorCodes.BLUETOOTH_NOT_INITIALIZED_ERROR) {
+
+            ClayException.ErrorCodes.BLUETOOTH_NOT_INITIALIZED_ERROR -> {
                 view?.onBluetoothStatusChanged(false)
                 isInErrorState = true
-                return
             }
-            if (exception.errorCode == JustinErrorCodes.PROCESS_ALREADY_RUNNING_ERROR) {
-                forceNewOpening()
-                return
-            }
-            if (exception.errorCode != JustinErrorCodes.TIMEOUT_REACHED_ERROR) {
+
+            JustinErrorCodes.PROCESS_ALREADY_RUNNING_ERROR -> forceNewOpening()
+
+            JustinErrorCodes.TIMEOUT_REACHED_ERROR -> {
                 view?.onKeySendError(getErrorMessage(exception), exception)
                 isInErrorState = true
-                return
             }
-            val time = System.currentTimeMillis() - lastOpeningStartTimestamp
-            if ((time > AppConfig.Timers.MKEY_TIMEOUT_THRESHOLD)) {
-                view?.onTimeOut()
-                return
+
+            else -> {
+                val time = System.currentTimeMillis() - lastOpeningStartTimestamp
+                if ((time > AppConfig.Timers.MKEY_TIMEOUT_THRESHOLD)) {
+                    view?.onTimeOut()
+                    return
+                }
+                forceNewOpening()
             }
-            forceNewOpening()
-        } finally {
-            isOpening = false
         }
+        isOpening = false
     }
 
     private fun getErrorMessage(exception: ClayException): String {
@@ -247,7 +253,7 @@ class MainPresenter(context: Context, sharedPrefs: ISharedPrefsUtil, private val
         sharedPrefs.device?.mKeyData?.let { mKey ->
             try {
                 lastOpeningStartTimestamp = System.currentTimeMillis()
-                claySDK.openDoor(mKey, lockDiscoveryCallback)
+                claySDK.openDoor(mKey, lockDiscoveryCallback) //Opening start
             } catch (exception: ClayException) {
                 handleClayException(exception)
             }

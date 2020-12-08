@@ -66,6 +66,10 @@ class LoginActivity : SaltoActivity<ILoginPresenter.View, ILoginPresenter.Action
         showMessageDialog(error)
     }
 
+    override fun onOIDConfigError() {
+        showMessageDialog(getString(R.string.verify_oid_config))
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == AppConfig.RequestCodes.AUTH_CODE && data != null) {

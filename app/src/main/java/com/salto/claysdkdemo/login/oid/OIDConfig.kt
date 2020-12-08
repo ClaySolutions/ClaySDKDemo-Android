@@ -3,22 +3,18 @@ package com.salto.claysdkdemo.login.oid
 import android.content.Context
 import android.net.Uri
 import android.util.Log
-import com.quality.claysdkdemo.BuildConfig
 import com.quality.claysdkdemo.R
 import net.openid.appauth.AuthState
 import net.openid.appauth.AuthorizationRequest
 import net.openid.appauth.ResponseTypeValues
 import javax.inject.Inject
 
-class OIDConfig @Inject constructor(context: Context) : IOIDConfig {
+class OIDConfig @Inject constructor(context: Context, private val idsUrl: String) : IOIDConfig {
 
     object Endpoint {
-        private const val AUTHORIZATION = "/connect/authorize"
-        private const val TOKEN = "/connect/token"
-        const val URL = "https://clp-accept-identityserver.my-clay.com"
+        const val AUTHORIZATION = "/connect/authorize"
+        const val TOKEN = "/connect/token"
         const val END_SESSION = "/connect/endsession"
-        const val AUTHORIZATION_ENDPOINT = "$URL$AUTHORIZATION"
-        const val TOKEN_ENDPOINT = "$URL$TOKEN"
     }
 
     object OID {
@@ -34,7 +30,7 @@ class OIDConfig @Inject constructor(context: Context) : IOIDConfig {
 
     override fun getLogoutRequest(authState: AuthState): String {
         val endSessionEndpoint =
-            Uri.parse("${Endpoint.URL}${Endpoint.END_SESSION}")
+            Uri.parse("${idsUrl}${Endpoint.END_SESSION}")
 
         val request = endSessionEndpoint.buildUpon()
             .appendQueryParameter(

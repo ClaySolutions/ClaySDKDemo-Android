@@ -18,6 +18,8 @@ interface ILoginPresenter {
         fun displayBrowserError()
 
         fun displayError(error: String)
+
+        fun onOIDConfigError()
     }
 
     interface Action: IBasePresenter.Action<View> {

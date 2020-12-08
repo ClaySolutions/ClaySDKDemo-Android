@@ -15,12 +15,11 @@ object AppConfig {
 
     object Endpoints {
         private const val UAP_VERSION = "/v1.1"
-        private const val ME_DEVICES = "$UAP_VERSION/me/devices"
-        const val REGISTER_MKEY_DEVICE = ME_DEVICES
-        const val GET_MOBILE_KEY = "$ME_DEVICES/{$USER_ID}/mkey"
-        const val MKEY_DEVICE = "$ME_DEVICES/{$DEVICE_ID}"
-        const val MKEY_DEVICE_LIST = ME_DEVICES
-        const val PUT_MKEY_DEVICE_CERTIFICATE = "$ME_DEVICES/{$USER_ID}/certificate"
+        const val REGISTER_MKEY_DEVICE = "$UAP_VERSION/me/devices"
+        const val GET_MOBILE_KEY = "$UAP_VERSION/me/devices/{$USER_ID}/mkey"
+        const val MKEY_DEVICE = "$UAP_VERSION/me/devices/{$DEVICE_ID}"
+        const val MKEY_DEVICE_LIST = "$UAP_VERSION/me/devices"
+        const val PUT_MKEY_DEVICE_CERTIFICATE = "$UAP_VERSION/me/devices/{$USER_ID}/certificate"
     }
 
     object ApiParams {
@@ -37,6 +36,7 @@ object AppConfig {
     object Dagger {
         const val RESOURCE_URL = "resourceUrl"
         const val API_KEY = "apiKey"
+        const val IDENTITY_SERVER = "identityServer"
     }
 
     object Timers {

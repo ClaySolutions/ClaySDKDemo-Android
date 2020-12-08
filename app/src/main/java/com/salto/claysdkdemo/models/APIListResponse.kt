@@ -6,15 +6,15 @@ import com.google.gson.annotations.SerializedName
 class APIListResponse<T>(
 
     @field:Expose
-    @field:SerializedName(value = "value", alternate = ["items"])
+    @field:SerializedName(value = "items")
     var list: List<T>,
 
     @field:Expose
-    @field:SerializedName(value = "@odata.nextLink", alternate = ["next_page_link"])
+    @field:SerializedName(value = "next_page_link")
     var nextPage: String
 ) {
 
-    @SerializedName(value = "@odata.count", alternate = ["count"])
+    @SerializedName(value = "count")
     @Expose
     var count = 0
 }

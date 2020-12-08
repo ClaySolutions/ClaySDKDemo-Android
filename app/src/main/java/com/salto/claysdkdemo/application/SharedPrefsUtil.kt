@@ -8,11 +8,11 @@ import com.salto.claysdkdemo.models.Device
 import net.openid.appauth.AuthState
 import java.lang.Exception
 
-const val STRING_PLACE_HOLDER = "%s.%s"
-const val KEY = BuildConfig.APPLICATION_ID
+private const val STRING_PLACE_HOLDER = "%s.%s"
+private const val KEY = BuildConfig.APPLICATION_ID
 
-const val AUTH_STATE = "auth_state"
-const val DEVICE = "device"
+private const val AUTH_STATE = "auth_state"
+private const val DEVICE = "device"
 
 class SharedPrefsUtil(context: Context) : ISharedPrefsUtil {
 

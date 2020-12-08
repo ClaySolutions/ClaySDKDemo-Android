@@ -37,6 +37,10 @@ interface IMainPresenter {
         fun onMissingLocationPermission()
 
         fun onPermissionGranted()
+
+        fun onKeyAccepted() = Unit
+
+        fun onKeyRejectedOrFailing() = Unit
     }
 
     interface Action: IBasePresenter.Action<View> {

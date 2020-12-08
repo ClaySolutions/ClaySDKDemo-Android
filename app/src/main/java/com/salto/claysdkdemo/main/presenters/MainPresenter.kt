@@ -66,6 +66,7 @@ class MainPresenter(context: Context, sharedPrefs: ISharedPrefsUtil, private val
 
         /**
          * Called when the Mobile Key is correctly sent to the lock
+         * Optionally result could give info about the opening operation
          */
         override fun onSuccess(result: Result) {
             isOpening = false
@@ -75,6 +76,16 @@ class MainPresenter(context: Context, sharedPrefs: ISharedPrefsUtil, private val
                 return
             }
             view?.onKeySuccessfullySent()
+
+            when (OpResult.getGroup(result.opResult)) {
+
+                OpResult.Group.ACCEPTED -> view?.onKeyAccepted()
+
+                OpResult.Group.UNKNOWN_RESULT -> Unit
+
+                else -> view?.onKeyRejectedOrFailing()
+            }
+
         }
 
         override fun onFailure(exception: ClayException) {

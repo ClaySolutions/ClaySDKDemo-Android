@@ -39,9 +39,7 @@ class MainPresenter(context: Context, sharedPrefs: ISharedPrefsUtil, private val
     IDeviceServiceListener {
 
     private var isBluetoothTurnedOn: Boolean = false
-    private var lastOpeningStartTimestamp: Long = 0
     private var isOpening: Boolean = false
-    private var isInErrorState: Boolean = false
     private var isLocationPermissionDenied = false
 
     init {
@@ -72,7 +70,6 @@ class MainPresenter(context: Context, sharedPrefs: ISharedPrefsUtil, private val
             isOpening = false
             if (result.opResult == OpResult.AUTH_SUCCESS_CANCELLED_KEY) {
                 view?.onSuccessWithCancelledKey()
-                isInErrorState = true
                 return
             }
             view?.onKeySuccessfullySent()
@@ -115,35 +112,20 @@ class MainPresenter(context: Context, sharedPrefs: ISharedPrefsUtil, private val
     }
 
     private fun handleClayException(exception: ClayException) {
+        isOpening = false
         when (exception.errorCode) {
 
-            ClayErrorCode.DECRYPT_FAILED_ERROR.value -> {
-                view?.onMKeyDecryptionFailed()
-                isInErrorState = true
-            }
+            ClayErrorCode.DECRYPT_FAILED_ERROR.value -> view?.onMKeyDecryptionFailed()
 
-            ClayException.ErrorCodes.BLUETOOTH_NOT_INITIALIZED_ERROR -> {
-                view?.onBluetoothStatusChanged(false)
-                isInErrorState = true
-            }
+            ClayException.ErrorCodes.BLUETOOTH_NOT_INITIALIZED_ERROR -> view?.onBluetoothStatusChanged(false)
 
             JustinErrorCodes.PROCESS_ALREADY_RUNNING_ERROR -> forceNewOpening()
 
-            JustinErrorCodes.TIMEOUT_REACHED_ERROR -> {
-                view?.onKeySendError(getErrorMessage(exception), exception)
-                isInErrorState = true
-            }
+            JustinErrorCodes.TIMEOUT_REACHED_ERROR -> view?.onTimeOut()
 
-            else -> {
-                val time = System.currentTimeMillis() - lastOpeningStartTimestamp
-                if ((time > AppConfig.Timers.MKEY_TIMEOUT_THRESHOLD)) {
-                    view?.onTimeOut()
-                    return
-                }
-                forceNewOpening()
-            }
+            else -> view?.onKeySendError(getErrorMessage(exception), exception)
+
         }
-        isOpening = false
     }
 
     private fun getErrorMessage(exception: ClayException): String {
@@ -260,7 +242,6 @@ class MainPresenter(context: Context, sharedPrefs: ISharedPrefsUtil, private val
 
         sharedPrefs.device?.mKeyData?.let { mKey ->
             try {
-                lastOpeningStartTimestamp = System.currentTimeMillis()
                 claySDK.openDoor(mKey, lockDiscoveryCallback) //Opening start
             } catch (exception: ClayException) {
                 handleClayException(exception)
@@ -272,15 +253,6 @@ class MainPresenter(context: Context, sharedPrefs: ISharedPrefsUtil, private val
     }
 
     override fun onResume() {
-        if (isLocationPermissionDenied) {
-            return
-        }
-
-        if (isInErrorState) {
-            isInErrorState = false
-            openLock()
-        }
-
         if (isBluetoothTurnedOn) {
             scanOnBluetoothTurnedOn(AppConfig.Timers.MKEY_BLUETOOTH_ON_RETRY)
             isBluetoothTurnedOn = false
@@ -311,7 +283,6 @@ class MainPresenter(context: Context, sharedPrefs: ISharedPrefsUtil, private val
 
             permissions.isNotEmpty() && !activity.shouldShowRequestPermissionRationale(permissions[0]) -> {
                 isLocationPermissionDenied = true
-                isInErrorState = true
                 view?.onNeverAskLocationPermissionAgain()
             }
 

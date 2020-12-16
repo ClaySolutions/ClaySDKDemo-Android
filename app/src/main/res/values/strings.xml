@@ -1,8 +1,8 @@
 <resources>
-    <string name="client_id">4451a70f-4f92-11e8-9f1c-0050568d6e36</string>
-    <string name="appauth_redirect_scheme">nl.moboa.myclay.debug</string>
-    <string name="redirect_url">nl.moboa.myclay.debug:/oauth2redirect/redirect</string>
-    <string name="logout_redirect_url">nl.moboa.myclay.debug:/oauth2redirect/logout</string>
+    <string name="client_id"></string>
+    <string name="appauth_redirect_scheme"></string>
+    <string name="redirect_url"></string>
+    <string name="logout_redirect_url"></string>
     <string name="identity_server_url">https://clp-accept-identityserver.my-clay.com</string>
     <string name="public_api_key">MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEFYDlLVhKz+qNQIBASs322cib/iwnnuSWczXSvU8GGYB6pgZgaCroCywHMPclFRehVsB+jYRJd6n4zkhDSGd5bQ==</string>
     <string name="user_api_url">https://clp-accept-user.my-clay.com</string>

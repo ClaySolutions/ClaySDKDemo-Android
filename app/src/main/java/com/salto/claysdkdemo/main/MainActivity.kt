@@ -137,8 +137,7 @@ class MainActivity : SaltoActivity<IMainPresenter.View, IMainPresenter.Action>()
 
     override fun onKeySendError(errorMessage: String, exception: ClayException) {
         status = errorMessage
-        hideProgress()
-        open_button.visibility = VISIBLE
+        reset()
     }
 
     override fun onTimeOut() {

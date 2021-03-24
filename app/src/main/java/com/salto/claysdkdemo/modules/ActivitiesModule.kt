@@ -2,6 +2,7 @@ package com.salto.claysdkdemo.modules
 
 import com.salto.claysdkdemo.main.MainActivity
 import com.salto.claysdkdemo.login.LoginActivity
+import com.salto.claysdkdemo.widget.AppWidgetPermissionActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -13,4 +14,7 @@ abstract class ActivitiesModule {
 
     @ContributesAndroidInjector
     internal abstract fun contributeMainActivity(): MainActivity
+
+    @ContributesAndroidInjector
+    internal abstract fun contributeAppWidgetPermissionActivity(): AppWidgetPermissionActivity
 }

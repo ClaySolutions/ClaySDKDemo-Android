@@ -4,8 +4,8 @@ import android.content.Context
 import android.os.Build
 import com.google.common.net.HttpHeaders.AUTHORIZATION
 import com.google.common.net.HttpHeaders.USER_AGENT
-import com.quality.claysdkdemo.BuildConfig
-import com.quality.claysdkdemo.R
+import com.salto.claysdkdemo.BuildConfig
+import com.salto.claysdkdemo.R
 import com.salto.claysdkdemo.application.ISharedPrefsUtil
 import okhttp3.Interceptor
 import okhttp3.OkHttp

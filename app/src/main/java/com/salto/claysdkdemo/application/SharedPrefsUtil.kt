@@ -3,7 +3,7 @@ package com.salto.claysdkdemo.application
 import android.content.Context
 import android.content.SharedPreferences
 import com.google.gson.Gson
-import com.quality.claysdkdemo.BuildConfig
+import com.salto.claysdkdemo.BuildConfig
 import com.salto.claysdkdemo.models.Device
 import net.openid.appauth.AuthState
 import java.lang.Exception

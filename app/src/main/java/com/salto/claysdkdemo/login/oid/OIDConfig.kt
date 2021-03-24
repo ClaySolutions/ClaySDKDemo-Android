@@ -3,7 +3,7 @@ package com.salto.claysdkdemo.login.oid
 import android.content.Context
 import android.net.Uri
 import android.util.Log
-import com.quality.claysdkdemo.R
+import com.salto.claysdkdemo.R
 import net.openid.appauth.AuthState
 import net.openid.appauth.AuthorizationRequest
 import net.openid.appauth.ResponseTypeValues

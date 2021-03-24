@@ -4,7 +4,7 @@ import android.content.Context
 import android.net.Uri
 import com.myclay.claysdk.api.ClaySDK
 import com.myclay.claysdk.api.IClaySDK
-import com.quality.claysdkdemo.R
+import com.salto.claysdkdemo.R
 import com.salto.claysdkdemo.application.App
 import com.salto.claysdkdemo.application.AppConfig.Dagger.API_KEY
 import com.salto.claysdkdemo.application.AppConfig.Dagger.IDENTITY_SERVER

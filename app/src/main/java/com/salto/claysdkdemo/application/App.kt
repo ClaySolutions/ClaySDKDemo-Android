@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class App: Application(), HasAndroidInjector {
 
-    private lateinit var appComponent: AppComponent
+    lateinit var appComponent: AppComponent
 
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>

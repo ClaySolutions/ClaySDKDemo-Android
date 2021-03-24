@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.quality.claysdkdemo">
+    package="com.salto.claysdkdemo">
 
     <queries>
         <intent>
@@ -19,6 +19,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
@@ -33,13 +34,13 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:name="com.salto.claysdkdemo.application.App"
+        android:name=".application.App"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ClaySDKDemo">
 
         <activity
-            android:name="com.salto.claysdkdemo.login.LoginActivity"
+            android:name=".login.LoginActivity"
             android:screenOrientation="sensorPortrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -49,8 +50,18 @@
         </activity>
 
         <activity
-            android:name="com.salto.claysdkdemo.main.MainActivity"
+            android:name=".main.MainActivity"
             android:screenOrientation="sensorPortrait" />
+
+        <activity
+            android:name=".widget.AppWidgetPermissionActivity"
+            android:screenOrientation="sensorPortrait"
+            android:theme="@style/Transparent" >
+
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
+            </intent-filter>
+        </activity>
 
         <activity android:name="net.openid.appauth.RedirectUriReceiverActivity">
             <intent-filter>
@@ -62,6 +73,18 @@
                 <data android:scheme="@string/appauth_redirect_scheme" />
             </intent-filter>
         </activity>
+
+        <receiver android:name=".widget.DemoWidgetProvider"
+            android:icon="@mipmap/ic_launcher"
+            android:foregroundServiceType="location"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                android:resource="@xml/clay_app_widget_provider_info" />
+        </receiver>
+
     </application>
 
 </manifest>

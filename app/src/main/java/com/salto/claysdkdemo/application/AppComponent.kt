@@ -4,6 +4,7 @@ import com.salto.claysdkdemo.modules.ActivitiesModule
 import com.salto.claysdkdemo.modules.AppModule
 import com.salto.claysdkdemo.modules.PresenterModule
 import com.salto.claysdkdemo.modules.ServiceModule
+import com.salto.claysdkdemo.widget.DemoWidgetProvider
 import dagger.Component
 import dagger.android.AndroidInjectionModule
 import javax.inject.Singleton
@@ -35,4 +36,5 @@ interface AppComponent {
     }
 
     fun inject(app: App)
+    fun inject(widgetProvider: DemoWidgetProvider)
 }

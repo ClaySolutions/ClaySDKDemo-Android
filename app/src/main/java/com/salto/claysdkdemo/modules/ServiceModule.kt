@@ -3,8 +3,8 @@ package com.salto.claysdkdemo.modules
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
-import com.quality.claysdkdemo.BuildConfig
-import com.quality.claysdkdemo.R
+import com.salto.claysdkdemo.BuildConfig
+import com.salto.claysdkdemo.R
 import com.salto.claysdkdemo.application.AppConfig.Dagger.RESOURCE_URL
 import com.salto.claysdkdemo.application.ISharedPrefsUtil
 import com.salto.claysdkdemo.retrofit.IDeviceRetrofit

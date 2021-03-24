@@ -10,33 +10,35 @@ interface IMainPresenter {
 
     interface View: IBasePresenter.View {
 
-        fun startLogoutIntent(intent: Intent)
 
-        fun onActivationStateChanged(state: MKActivationState?)
 
-        fun requestMissingPermissions(permissions: Array<String>, requestCode: Int)
+        fun startLogoutIntent(intent: Intent) = Unit
 
-        fun onNeverAskLocationPermissionAgain()
+        fun onActivationStateChanged(state: MKActivationState?) = Unit
 
-        fun onPeripheralFound()
+        fun requestMissingPermissions(permissions: Array<String>, requestCode: Int) = Unit
 
-        fun onSuccessWithCancelledKey()
+        fun onNeverAskLocationPermissionAgain() = Unit
 
-        fun onKeySuccessfullySent()
+        fun onPeripheralFound() = Unit
 
-        fun onMKeyDecryptionFailed()
+        fun onSuccessWithCancelledKey() = Unit
 
-        fun onBluetoothStatusChanged(enabled: Boolean)
+        fun onKeySuccessfullySent() = Unit
 
-        fun onKeySendError(errorMessage: String, exception: ClayException)
+        fun onMKeyDecryptionFailed() = Unit
 
-        fun onTimeOut()
+        fun onBluetoothStatusChanged(enabled: Boolean) = Unit
 
-        fun onMobileKeyNotFound()
+        fun onKeySendError(errorMessage: String, exception: ClayException) = Unit
 
-        fun onMissingLocationPermission()
+        fun onTimeOut() = Unit
 
-        fun onPermissionGranted()
+        fun onMobileKeyNotFound() = Unit
+
+        fun onMissingLocationPermission() = Unit
+
+        fun onPermissionGranted() = Unit
 
         fun onKeyAccepted() = Unit
 
@@ -53,12 +55,16 @@ interface IMainPresenter {
 
         fun deleteDevice()
 
-        fun openLock()
+        fun openLock(needsBackground: Boolean = false)
 
         fun onRequestPermissionResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray, activity: Activity)
 
         fun onGoToSettingsClick()
 
         fun onResume()
+
+        fun checkAndAskRequiredPermission(needsBackground: Boolean): Boolean
+
+        fun hasLocationPermissions(needsBackground: Boolean): Boolean
     }
 }

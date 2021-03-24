@@ -15,7 +15,7 @@ import com.myclay.claysdk.api.IClaySDK
 import com.myclay.claysdk.api.ILockDiscoveryCallback
 import com.myclay.claysdk.api.error.ClayErrorCode
 import com.myclay.claysdk.api.error.ClayException
-import com.quality.claysdkdemo.R
+import com.salto.claysdkdemo.R
 import com.salto.claysdkdemo.application.AppConfig
 import com.salto.claysdkdemo.application.ISharedPrefsUtil
 import com.salto.claysdkdemo.base.BasePresenter
@@ -231,8 +231,8 @@ class MainPresenter(context: Context, sharedPrefs: ISharedPrefsUtil, private val
         sharedPrefs.device = null
     }
 
-    override fun openLock() {
-        if(!checkAndAskRequiredPermission()) {
+    override fun openLock(needsBackground: Boolean) {
+        if(!checkAndAskRequiredPermission(needsBackground)) {
             return
         }
         if (isOpening) {
@@ -299,23 +299,28 @@ class MainPresenter(context: Context, sharedPrefs: ISharedPrefsUtil, private val
         view?.onMissingLocationPermission()
     }
 
-    private fun hasLocationPermissions(): Boolean {
+    override fun hasLocationPermissions(needsBackground: Boolean): Boolean {
         val locationPermission = ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && needsBackground) {
+            val backgroundLocationPermission = ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_BACKGROUND_LOCATION)
+            return locationPermission == PackageManager.PERMISSION_GRANTED && backgroundLocationPermission == PackageManager.PERMISSION_GRANTED
+        }
+
         return locationPermission == PackageManager.PERMISSION_GRANTED
     }
 
-    private fun checkAndAskRequiredPermission(): Boolean {
+    override fun checkAndAskRequiredPermission(needsBackground: Boolean): Boolean {
         if (isLocationPermissionDenied) {
             view?.onNeverAskLocationPermissionAgain()
             return false
         }
 
-        if (hasLocationPermissions()) {
+        if (hasLocationPermissions(needsBackground)) {
             return true
         }
 
         val permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
-
         view?.requestMissingPermissions(permissions, AppConfig.RequestCodes.REQUEST_FINE_LOCATION_PERMISSION)
         return false
     }

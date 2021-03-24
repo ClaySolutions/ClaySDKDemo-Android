@@ -3,7 +3,7 @@ package com.salto.claysdkdemo.login
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.quality.claysdkdemo.R
+import com.salto.claysdkdemo.R
 import com.salto.claysdkdemo.application.AppConfig
 import com.salto.claysdkdemo.base.SaltoActivity
 import com.salto.claysdkdemo.login.presenters.ILoginPresenter

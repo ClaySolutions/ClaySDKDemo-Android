@@ -43,4 +43,8 @@ object AppConfig {
         const val MKEY_BLUETOOTH_ON_RETRY_DOUBLE: Long = 600
         const val MKEY_BLUETOOTH_ON_RETRY: Long = 300
     }
+
+    object Widget {
+        const val WIDGET_CLICK_ACTION = "WIDGET_CLICK_ACTION"
+    }
 }

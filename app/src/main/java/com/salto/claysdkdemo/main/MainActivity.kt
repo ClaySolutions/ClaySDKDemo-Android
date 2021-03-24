@@ -9,7 +9,7 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.core.app.ActivityCompat
 import com.myclay.claysdk.api.error.ClayException
-import com.quality.claysdkdemo.R
+import com.salto.claysdkdemo.R
 import com.salto.claysdkdemo.application.AppConfig
 import com.salto.claysdkdemo.base.SaltoActivity
 import com.salto.claysdkdemo.enums.MKActivationState

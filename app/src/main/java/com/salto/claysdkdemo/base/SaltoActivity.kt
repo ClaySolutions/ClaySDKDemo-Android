@@ -3,7 +3,7 @@ package com.salto.claysdkdemo.base
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.quality.claysdkdemo.R
+import com.salto.claysdkdemo.R
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 

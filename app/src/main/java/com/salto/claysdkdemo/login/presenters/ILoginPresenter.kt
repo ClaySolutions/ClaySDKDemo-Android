@@ -26,6 +26,8 @@ interface ILoginPresenter {
 
         fun login()
 
+        fun openGuestDigitalKeys()
+
         fun exchangeToken(authResponse: AuthorizationResponse?, authException: AuthorizationException?)
 
         val isLoggedIn: Boolean

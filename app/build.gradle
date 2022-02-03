@@ -4,13 +4,13 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.salto.claysdkdemo"
+        applicationId "com.myclay.claysdk.demo"
         minSdkVersion 21
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode 1
         versionName "1.0.0"
 
@@ -39,7 +39,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.myclay.claysdk:claysdk:0.3.37'
+    implementation 'com.myclay.claysdk:claysdk:1.10.0'
     //Networking
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"

@@ -29,6 +29,12 @@ class LoginActivity : SaltoActivity<ILoginPresenter.View, ILoginPresenter.Action
             }
             visibility = View.VISIBLE
         }
+        gdk_list_button.apply {
+            setOnClickListener {
+                presenter.openGuestDigitalKeys()
+            }
+            visibility = View.VISIBLE
+        }
     }
 
     override fun bindView() {
@@ -37,22 +43,26 @@ class LoginActivity : SaltoActivity<ILoginPresenter.View, ILoginPresenter.Action
 
     override fun onLoginSuccess() {
         login_button.visibility = View.GONE
+        gdk_list_button.visibility = View.GONE
         startActivity(Intent(this, MainActivity::class.java))
         finish()
     }
 
     private fun hideProgress() {
         login_button.isEnabled = true
+        gdk_list_button.isEnabled = true
         progress_bar.visibility = View.GONE
     }
 
     override fun onLoginError() {
         login_button.isEnabled = true
+        gdk_list_button.isEnabled = true
         hideProgress()
     }
 
     override fun displayOpenIDIntent(authIntent: Intent) {
         login_button.isEnabled = false
+        gdk_list_button.isEnabled = false
         progress_bar.visibility = View.VISIBLE
         startActivityForResult(authIntent, AppConfig.RequestCodes.AUTH_CODE)
     }

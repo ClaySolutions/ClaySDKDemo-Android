@@ -29,6 +29,8 @@ class LoginPresenter(context: Context, sharedPrefs: ISharedPrefsUtil,
         view?.displayOpenIDIntent(authIntent)
     }
 
+    override fun openGuestDigitalKeys() = Unit
+
     override fun exchangeToken(authResponse: AuthorizationResponse?, authException: AuthorizationException?) {
         authException?.let {
             view?.displayError(AuthOIDError(it).toString())

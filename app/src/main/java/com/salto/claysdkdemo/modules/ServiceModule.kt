@@ -8,12 +8,10 @@ import com.salto.claysdkdemo.R
 import com.salto.claysdkdemo.application.AppConfig.Dagger.RESOURCE_URL
 import com.salto.claysdkdemo.application.ISharedPrefsUtil
 import com.salto.claysdkdemo.retrofit.IDeviceRetrofit
+import com.salto.claysdkdemo.retrofit.IPodRetrofit
 import com.salto.claysdkdemo.retrofit.IUAPInterceptor
 import com.salto.claysdkdemo.retrofit.UAPInterceptor
-import com.salto.claysdkdemo.services.DeviceService
-import com.salto.claysdkdemo.services.IDeviceService
-import com.salto.claysdkdemo.services.IOIDAuthenticator
-import com.salto.claysdkdemo.services.OIDAuthenticator
+import com.salto.claysdkdemo.services.*
 import dagger.Lazy
 import dagger.Module
 import dagger.Provides
@@ -121,7 +119,22 @@ class ServiceModule {
 
     @Provides
     @Singleton
+    fun providePodService(
+        retrofit: IPodRetrofit,
+        authenticator: IOIDAuthenticator
+    ): IPodService {
+        return PodService(retrofit, authenticator)
+    }
+
+    @Provides
+    @Singleton
     fun provideRetrofitMKey(retrofit: Retrofit): IDeviceRetrofit {
         return retrofit.create(IDeviceRetrofit::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideRetrofitPod(retrofit: Retrofit): IPodRetrofit {
+        return retrofit.create(IPodRetrofit::class.java)
     }
 }

@@ -3,7 +3,10 @@ package com.salto.claysdkdemo.main.presenters
 import android.Manifest
 import android.app.Activity
 import android.bluetooth.BluetoothAdapter
-import android.content.*
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
@@ -11,6 +14,7 @@ import android.os.Handler
 import androidx.annotation.RequiresApi
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
+import com.myclay.claysdk.api.ClaySDK
 import com.myclay.claysdk.api.IClaySDK
 import com.myclay.claysdk.api.ILockDiscoveryCallback
 import com.myclay.claysdk.api.error.ClayErrorCode
@@ -23,6 +27,7 @@ import com.salto.claysdkdemo.enums.MKActivationState
 import com.salto.claysdkdemo.listeners.IDeviceServiceListener
 import com.salto.claysdkdemo.login.oid.IOIDConfig
 import com.salto.claysdkdemo.models.Device
+import com.salto.claysdkdemo.models.GuestDigitalKey
 import com.salto.claysdkdemo.services.IDeviceService
 import com.salto.claysdkdemo.utils.DeviceInfo
 import com.saltosystems.justinmobile.sdk.common.OpResult
@@ -34,7 +39,7 @@ import net.openid.appauth.browser.BrowserSelector
 
 
 class MainPresenter(context: Context, sharedPrefs: ISharedPrefsUtil, private val authState: AuthState, private val oidConfig: IOIDConfig,
-                    private val deviceService: IDeviceService, private val claySDK: IClaySDK, private val handler: Handler
+                    private val deviceService: IDeviceService, private val apiKey: String, private val claySDK: IClaySDK, private val handler: Handler
 ): BasePresenter<IMainPresenter.View>(context, sharedPrefs), IMainPresenter.Action,
     IDeviceServiceListener {
 
@@ -231,7 +236,8 @@ class MainPresenter(context: Context, sharedPrefs: ISharedPrefsUtil, private val
         sharedPrefs.device = null
     }
 
-    override fun openLock(needsBackground: Boolean) {
+    // When the normal flow is used (login -> regular digital key), guestDigitalKey should be left empty/null, parameter key is only used for digital key for guests.
+    override fun openLock(needsBackground: Boolean, key: GuestDigitalKey?) {
         if(!checkAndAskRequiredPermission(needsBackground)) {
             return
         }
@@ -239,15 +245,27 @@ class MainPresenter(context: Context, sharedPrefs: ISharedPrefsUtil, private val
             return
         }
         isOpening = true
-
-        sharedPrefs.device?.mKeyData?.let { mKey ->
+        key?.let {
+            // Guest Digital Key Flow;
             try {
-                claySDK.openDoor(mKey, lockDiscoveryCallback) //Opening start
+                val guestKeyClaySDK = ClaySDK.init(context, apiKey, key.device?.deviceUid)
+                guestKeyClaySDK.openDoor(it.mKeyData, lockDiscoveryCallback) //Opening start
             } catch (exception: ClayException) {
                 handleClayException(exception)
             }
             return
+        } ?: run {
+            // Default flow (via login);
+            sharedPrefs.device?.mKeyData?.let { mKey ->
+                try {
+                    claySDK.openDoor(mKey, lockDiscoveryCallback) //Opening start
+                } catch (exception: ClayException) {
+                    handleClayException(exception)
+                }
+                return
+            }
         }
+
         isOpening = false
         view?.onMobileKeyNotFound()
     }
@@ -310,17 +328,27 @@ class MainPresenter(context: Context, sharedPrefs: ISharedPrefsUtil, private val
         return locationPermission == PackageManager.PERMISSION_GRANTED
     }
 
+    private fun hasNearbyDeviceDetectionPermission(): Boolean {
+        // When targeting Android 12 (SDK 31) and higher, new permissions are needed for bluetooth, therefore it's necessary to check for these specific permissions if user has this version
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            val hasPermissionBTScan = ContextCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH_SCAN) == PackageManager.PERMISSION_GRANTED
+            val hasPermissionBTConnect = ContextCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED
+            return hasPermissionBTScan && hasPermissionBTConnect
+        }
+        return true
+    }
+
     override fun checkAndAskRequiredPermission(needsBackground: Boolean): Boolean {
         if (isLocationPermissionDenied) {
             view?.onNeverAskLocationPermissionAgain()
             return false
         }
 
-        if (hasLocationPermissions(needsBackground)) {
+        if (hasLocationPermissions(needsBackground) && hasNearbyDeviceDetectionPermission()) {
             return true
         }
 
-        val permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
+        val permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.BLUETOOTH_SCAN, Manifest.permission.BLUETOOTH_CONNECT)
         view?.requestMissingPermissions(permissions, AppConfig.RequestCodes.REQUEST_FINE_LOCATION_PERMISSION)
         return false
     }

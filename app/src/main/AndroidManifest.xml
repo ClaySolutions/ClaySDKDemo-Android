@@ -59,6 +59,21 @@
 
         <activity
             android:exported="true"
+            android:name=".send_dkey.SendDKeyActivity"
+            android:screenOrientation="sensorPortrait" />
+
+        <activity
+            android:exported="true"
+            android:name=".guest_digital_key.GuestDigitalKeysListActivity"
+            android:screenOrientation="sensorPortrait" />
+
+        <activity
+            android:exported="true"
+            android:name=".access_code.AccessCodeActivity"
+            android:screenOrientation="sensorPortrait" />
+
+        <activity
+            android:exported="true"
             android:name=".widget.AppWidgetPermissionActivity"
             android:screenOrientation="sensorPortrait"
             android:theme="@style/Transparent" >

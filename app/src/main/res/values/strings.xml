@@ -1,15 +1,20 @@
 <resources>
-    <string name="client_id"></string>
-    <string name="appauth_redirect_scheme"></string>
-    <string name="redirect_url"></string>
-    <string name="logout_redirect_url"></string>
-    <string name="identity_server_url">https://clp-accept-identityserver.saltoks.com</string>
-    <string name="public_api_key">MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEFYDlLVhKz+qNQIBASs322cib/iwnnuSWczXSvU8GGYB6pgZgaCroCywHMPclFRehVsB+jYRJd6n4zkhDSGd5bQ==</string>
-    <string name="user_api_url">https://clp-accept-user.my-clay.com</string>
+    <string name="client_id">48b34030-9053-4a25-8a32-b8f0bde57ef2</string>
+    <string name="dkg_client_id">0dacd227-1616-4767-86a9-b95773b0e30a</string>
+    <string name="appauth_redirect_scheme">com.myclay.claysdk.demo</string>
+    <string name="redirect_url">com.myclay.claysdk.demo:/oauth2redirect/redirect</string>
+    <string name="logout_redirect_url">com.myclay.claysdk.demo:/oauth2redirect/logout</string>
+    <string name="identity_server_url">https://clp-test-identityserver.saltoks.com</string>
+    <string name="public_api_key">MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEtcuihxN03eyMjtA+2yjj+NziBizntTKWidQBR30TvZ0WWyikrvcAlZnrOB41pYuBzj+ZXTrmy/cjhcOA5JdAKg==</string>
+    <string name="user_api_url">https://clp-test-user.saltoks.com</string>
 
     <string name="app_name">ClaySDKDemo</string>
     <string name="login">LOGIN</string>
     <string name="dgk_list">LIST OF GUEST DIGITAL KEYS</string>
+    <string name="name">Name:</string>
+    <string name="device">Device:</string>
+    <string name="date">Date:</string>
+    <string name="save">Save</string>
     <string name="ok">OK</string>
     <string name="browser_not_found">Default browser not found.</string>
     <string name="logout">LOGOUT</string>
@@ -29,6 +34,7 @@
     <string name="lock_not_found">Lock not found</string>
     <string name="looking_for_looks">Looking for your lock. Remember to tap on it to wake it up.</string>
     <string name="go_to_settings">Settings</string>
+    <string name="verify_access_code">Please double-check your access code and your OpenId configuration values (strings.xml file)</string>
     <string name="verify_oid_config">Please verify you have added the right OpenId configuration values for this client in your strings.xml file</string>
     <string name="mkey_not_found">Digital Key not found</string>
     <string name="mkey_coarse_location_permission_widget_addition">Apri l\'app e tocca il pulsante Digital Key.</string>
@@ -37,4 +43,5 @@
     <string name="mobile_key_active_widget">Digital Key is active…Tap the reader of the lock with this phone.</string>
     <string name="digital_key_widget">Digital Key Widget</string>
     <string name="prominent_location_disclosure">The app uses location data to enable the Digital Key Widget even when the app is closed or not in use.\nWe don\'t store your location data.</string>
+    <string name="add_digital_key">Add digital key</string>
 </resources>

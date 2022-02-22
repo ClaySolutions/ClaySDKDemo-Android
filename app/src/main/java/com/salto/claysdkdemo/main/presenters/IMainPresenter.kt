@@ -5,6 +5,8 @@ import android.content.Intent
 import com.myclay.claysdk.api.error.ClayException
 import com.salto.claysdkdemo.base.IBasePresenter
 import com.salto.claysdkdemo.enums.MKActivationState
+import com.salto.claysdkdemo.models.GuestDigitalKey
+import com.salto.claysdkdemo.models.Key
 
 interface IMainPresenter {
 
@@ -55,7 +57,7 @@ interface IMainPresenter {
 
         fun deleteDevice()
 
-        fun openLock(needsBackground: Boolean = false)
+        fun openLock(needsBackground: Boolean = false, key: GuestDigitalKey? = null)
 
         fun onRequestPermissionResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray, activity: Activity)
 

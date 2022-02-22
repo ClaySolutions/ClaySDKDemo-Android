@@ -1,8 +1,10 @@
 package com.salto.claysdkdemo.login.presenters
 
 import android.content.Context
+import android.content.Intent
 import com.salto.claysdkdemo.application.ISharedPrefsUtil
 import com.salto.claysdkdemo.base.BasePresenter
+import com.salto.claysdkdemo.guest_digital_key.GuestDigitalKeysListActivity
 import com.salto.claysdkdemo.login.oid.AuthOIDError
 import com.salto.claysdkdemo.login.oid.IOIDConfig
 import net.openid.appauth.*
@@ -28,8 +30,6 @@ class LoginPresenter(context: Context, sharedPrefs: ISharedPrefsUtil,
                 ?: return
         view?.displayOpenIDIntent(authIntent)
     }
-
-    override fun openGuestDigitalKeys() = Unit
 
     override fun exchangeToken(authResponse: AuthorizationResponse?, authException: AuthorizationException?) {
         authException?.let {

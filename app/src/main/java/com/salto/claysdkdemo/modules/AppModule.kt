@@ -41,7 +41,10 @@ class AppModule(private val application: App) {
     }
 
     @Provides
-    fun provideOIDConfig(context: Context, @Named(IDENTITY_SERVER) idsUrl: String): IOIDConfig = OIDConfig(context, idsUrl)
+    fun provideIOIDConfig(context: Context, @Named(IDENTITY_SERVER) idsUrl: String): IOIDConfig = OIDConfig(context, idsUrl)
+
+    @Provides
+    fun provideOIDConfig(context: Context, @Named(IDENTITY_SERVER) idsUrl: String): OIDConfig = OIDConfig(context, idsUrl)
 
     @Provides
     @Singleton

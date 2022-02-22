@@ -22,11 +22,12 @@ class OIDConfig @Inject constructor(context: Context, private val idsUrl: String
         const val PARAM_REDIRECT_URI = "post_logout_redirect_uri"
     }
 
-    private val clientId: String = context.getString(R.string.client_id)
+    val clientId: String = context.getString(R.string.client_id)
+    val dkgClientId: String = context.getString(R.string.dkg_client_id)
 
-    private val redirect: String = context.getString(R.string.redirect_url)
-    private val logoutRedirect: String = context.getString(R.string.logout_redirect_url)
-    private val scope = "openid profile offline_access user_api.full_access"
+    val redirect: String = context.getString(R.string.redirect_url)
+    val logoutRedirect: String = context.getString(R.string.logout_redirect_url)
+    val scope = "openid profile offline_access user_api.full_access"
 
     override fun getLogoutRequest(authState: AuthState): String {
         val endSessionEndpoint =

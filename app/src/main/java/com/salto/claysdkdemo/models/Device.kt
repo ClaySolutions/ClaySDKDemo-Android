@@ -9,7 +9,7 @@ import kotlinx.android.parcel.Parcelize
 data class Device(
 
     @field:Expose @field:SerializedName("mkey_data")
-    val mKeyData: String,
+    var mKeyData: String?,
 
     @field:Expose @field:SerializedName("certificate")
     val certificate: String,

@@ -6,6 +6,7 @@ import android.view.View
 import com.salto.claysdkdemo.R
 import com.salto.claysdkdemo.application.AppConfig
 import com.salto.claysdkdemo.base.SaltoActivity
+import com.salto.claysdkdemo.guest_digital_key.GuestDigitalKeysListActivity
 import com.salto.claysdkdemo.login.presenters.ILoginPresenter
 import com.salto.claysdkdemo.main.MainActivity
 import kotlinx.android.synthetic.main.activity_login.*
@@ -31,7 +32,7 @@ class LoginActivity : SaltoActivity<ILoginPresenter.View, ILoginPresenter.Action
         }
         gdk_list_button.apply {
             setOnClickListener {
-                presenter.openGuestDigitalKeys()
+                context.startActivity(Intent(context, GuestDigitalKeysListActivity::class.java))
             }
             visibility = View.VISIBLE
         }

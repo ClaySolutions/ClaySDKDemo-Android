@@ -19,6 +19,7 @@ object AppConfig {
         const val MKEY_DEVICE = "/v1.1/me/devices/{$DEVICE_ID}"
         const val MKEY_DEVICE_LIST = "/v1.1/me/devices"
         const val PUT_MKEY_DEVICE_CERTIFICATE = "/v1.1/me/devices/{$USER_ID}/certificate"
+        const val REGISTER_POD_GUEST = "/v1.1/pods/guests"
     }
 
     object ApiParams {
@@ -26,6 +27,8 @@ object AppConfig {
         const val DEVICE_ID = "deviceId"
         const val DEVICE_NAME = "device_name"
         const val DEVICE_UUID = "device_uid"
+        const val FIRST_NAME = "first_name"
+        const val LAST_NAME = "last_name"
         const val PUBLIC_KEY = "public_key"
         const val DEVICE_UUID_PLACE_HOLDER = "uuidPlaceHolder"
         const val ODATA_FILTER = "\$filter"

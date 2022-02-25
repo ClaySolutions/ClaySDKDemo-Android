@@ -1,7 +1,9 @@
-### What is this repository for? ###
+# ClaySDK Demo Application
 
 This is a sample app that shows how to obtain a token for the SaltoKS's APIs 
 and activate an Android device to be used to unlock a Salto lock via Mobile Key.
+
+By [Salto KS](https://saltoks.com/).
 
 ### How do I get set up? ###
 
@@ -21,4 +23,10 @@ By default the app will point to the Salto's Connect APIs to their accept enviro
     <string name="user_api_url">https://clp-accept-user.my-clay.com</string>
 ```
 
-  
+## Author
+
+* [ClaySolutions](https://github.com/ClaySolutions) ([Victor](https://github.com/victorlsn))
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details

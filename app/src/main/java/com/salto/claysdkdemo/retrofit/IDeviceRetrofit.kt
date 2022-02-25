@@ -15,7 +15,7 @@ interface IDeviceRetrofit {
     fun registerDevice(@Body deviceInfo: HashMap<String, String>): Call<Device>
 
     @GET(AppConfig.Endpoints.GET_MOBILE_KEY)
-    fun getMobileKey(@Path(USER_ID) userId: String): Call<Device>
+    fun getMobileKey(@Path(DEVICE_ID) deviceId: String): Call<Device>
 
     @GET(AppConfig.Endpoints.MKEY_DEVICE)
     fun getDevice(@Path(DEVICE_ID) deviceId: String): Call<Device>

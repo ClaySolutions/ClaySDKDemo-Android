@@ -3,10 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <Button
+        android:id="@+id/use_normal_dkey"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/use_normal_dkey"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.9" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/gdk_list"
         android:layout_width="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/use_normal_dkey"
         app:layout_constraintBottom_toTopOf="@+id/add_key_button"
         android:layout_height="0dp"/>
 

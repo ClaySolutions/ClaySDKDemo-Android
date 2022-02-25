@@ -122,6 +122,7 @@ class AccessCodePresenter(
             dateCreated = Date()
             sharedPrefs.saveGuestDigitalKey(guestDigitalKey)
         }
+        sharedPrefs.deleteAuthState()
         view?.didSaveGDKey()
     }
 

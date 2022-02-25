@@ -1,6 +1,7 @@
 package com.salto.claysdkdemo.guest_digital_key
 
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.salto.claysdkdemo.access_code.AccessCodeActivity
@@ -9,6 +10,7 @@ import com.salto.claysdkdemo.databinding.ActivityGuestDigitalKeysBinding
 import com.salto.claysdkdemo.guest_digital_key.list.GuestDigitalKeyAdapter
 import com.salto.claysdkdemo.guest_digital_key.list.IGDKeyClickListener
 import com.salto.claysdkdemo.guest_digital_key.presenters.IGuestDigitalKeysListPresenter
+import com.salto.claysdkdemo.main.MainActivity
 import com.salto.claysdkdemo.models.GuestDigitalKey
 import com.salto.claysdkdemo.send_dkey.SendDKeyActivity
 
@@ -33,6 +35,12 @@ class GuestDigitalKeysListActivity : SaltoActivity<IGuestDigitalKeysListPresente
     private fun setListeners() {
         binding.addKeyButton.setOnClickListener {
             startActivity(Intent(this, AccessCodeActivity::class.java))
+        }
+        binding.useNormalDkey.setOnClickListener {
+            Intent(this, MainActivity::class.java).apply {
+                addFlags(FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(this)
+            }
         }
     }
 

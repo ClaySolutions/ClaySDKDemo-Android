@@ -58,24 +58,6 @@ class SharedPrefsUtil(context: Context) : ISharedPrefsUtil {
         sharedPreferences.edit().remove(authStateKey).apply()
     }
 
-    override fun readAuthStateFor(accessCode: String): AuthState? {
-        return sharedPreferences.getString(accessCode, null)?.let {
-            try {
-                AuthState.jsonDeserialize(it)
-            } catch (e: Exception) {
-                null
-            }
-        }
-    }
-
-    override fun writeAuthStateFor(accessCode: String, authState: AuthState?) {
-        sharedPreferences.edit().putString(accessCode, authState?.jsonSerializeString()).apply()
-    }
-
-    override fun deleteAuthStateFor(accessCode: String) {
-        sharedPreferences.edit().remove(accessCode).apply()
-    }
-
     override fun saveGuestDigitalKey(key: GuestDigitalKey) {
         val currentDigitalKeys = getGuestDigitalKeys()
         currentDigitalKeys.add(key)

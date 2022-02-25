@@ -15,12 +15,6 @@ interface ISharedPrefsUtil {
 
     fun deleteAuthState()
 
-    fun readAuthStateFor(accessCode: String): AuthState?
-
-    fun writeAuthStateFor(accessCode: String, authState: AuthState?)
-
-    fun deleteAuthStateFor(accessCode: String)
-
     fun getGuestDigitalKeys(): MutableList<GuestDigitalKey>
 
     fun saveGuestDigitalKey(key: GuestDigitalKey)

@@ -13,6 +13,7 @@ import com.salto.claysdkdemo.R
 import com.salto.claysdkdemo.application.AppConfig
 import com.salto.claysdkdemo.base.SaltoActivity
 import com.salto.claysdkdemo.enums.MKActivationState
+import com.salto.claysdkdemo.guest_digital_key.GuestDigitalKeysListActivity
 import com.salto.claysdkdemo.login.LoginActivity
 import com.salto.claysdkdemo.main.presenters.IMainPresenter
 import kotlinx.android.synthetic.main.activity_main.*
@@ -36,6 +37,15 @@ class MainActivity : SaltoActivity<IMainPresenter.View, IMainPresenter.Action>()
         setContentView(R.layout.activity_main)
         logout_button.setOnClickListener {
             presenter.logout()
+        }
+        gdk_list_button.apply {
+            visibility = VISIBLE
+            setOnClickListener {
+                Intent(context, GuestDigitalKeysListActivity::class.java).apply {
+                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    startActivity(this)
+                }
+            }
         }
         retry_button.setOnClickListener {
             registerDevice()

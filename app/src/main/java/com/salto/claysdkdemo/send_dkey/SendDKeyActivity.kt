@@ -10,16 +10,12 @@ import android.view.View.VISIBLE
 import androidx.core.app.ActivityCompat
 import com.myclay.claysdk.api.error.ClayException
 import com.salto.claysdkdemo.R
-import com.salto.claysdkdemo.application.AppConfig
 import com.salto.claysdkdemo.base.SaltoActivity
 import com.salto.claysdkdemo.enums.MKActivationState
-import com.salto.claysdkdemo.login.LoginActivity
+import com.salto.claysdkdemo.main.MainActivity
 import com.salto.claysdkdemo.main.presenters.IMainPresenter
 import com.salto.claysdkdemo.models.GuestDigitalKey
-import com.salto.claysdkdemo.models.Key
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.progress_bar
 import javax.inject.Inject
 
 class SendDKeyActivity : SaltoActivity<IMainPresenter.View, IMainPresenter.Action>(),
@@ -43,9 +39,16 @@ class SendDKeyActivity : SaltoActivity<IMainPresenter.View, IMainPresenter.Actio
 
         (intent?.extras?.get("GDKEY") as GuestDigitalKey?)?.let {
             this.gdKey = it
+            use_normal_dkey.visibility = VISIBLE
         }
         open_button.setOnClickListener {
             openLock()
+        }
+        use_normal_dkey.setOnClickListener {
+            Intent(this, MainActivity::class.java).apply {
+                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(this)
+            }
         }
         logout_button.visibility = GONE
         retry_button.visibility = GONE

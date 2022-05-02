@@ -15,6 +15,7 @@ By default the app will point to the Salto's Connect APIs to their accept enviro
 
 ```xml
     <string name="client_id"></string>
+    <string name="dkg_client_id"></string>
     <string name="appauth_redirect_scheme"></string>
     <string name="redirect_url"></string>
     <string name="logout_redirect_url"></string>
